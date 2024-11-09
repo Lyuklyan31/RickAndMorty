@@ -1,13 +1,14 @@
 import SwiftUI
 import RickMortySwiftApi
 
-struct ContentView: View {
+struct MainContentView: View {
     let rmClient = RMClient()
     @State var characters: [RMCharacterModel] = []
     var body: some View {
         NavigationView {
             List(characters) { character in
                 Text(character.name)
+                    
             }
             .task {
                 do {
@@ -22,5 +23,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    MainContentView()
 }
