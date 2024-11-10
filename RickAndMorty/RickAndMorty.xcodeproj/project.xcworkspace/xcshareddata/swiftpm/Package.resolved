@@ -1,6 +1,15 @@
 {
-  "originHash" : "2f9b16cd72e458fb22fb4ef46b7e5a33b029f5a77372ee09c2bd1c7fd42d3e9d",
+  "originHash" : "e21e6356bab480e2f6da5cf5fa839855317bd7b21755cf04d7d8c1e205da1a71",
   "pins" : [
+    {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
+      "state" : {
+        "revision" : "c0940e241945e6378c01fbd45fd3815579d47ef5",
+        "version" : "8.1.0"
+      }
+    },
     {
       "identity" : "rick-and-morty-swift-api",
       "kind" : "remoteSourceControl",
