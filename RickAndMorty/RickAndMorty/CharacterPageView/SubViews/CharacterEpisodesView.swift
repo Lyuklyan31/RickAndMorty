@@ -1,7 +1,7 @@
 import SwiftUI
 import RickMortySwiftApi
 
-struct EpisodesView: View {
+struct CharacterEpisodesView: View {
     var character: RMCharacterModel
     var body: some View {
         VStack {
@@ -10,8 +10,8 @@ struct EpisodesView: View {
                 .padding(.top, 10)
             
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))], spacing: 10) {
-                ForEach(character.episode, id: \.self) { episodeURL in
-                    Text("Episode \(episodeURL.episodeNumber)")
+                ForEach(character.episode, id: \.self) { episode in
+                    Text("Episode \(episode.getEpisodeNumber)")
                         .font(.system(size: 16))
                         .padding()
                         .frame(maxWidth: .infinity)

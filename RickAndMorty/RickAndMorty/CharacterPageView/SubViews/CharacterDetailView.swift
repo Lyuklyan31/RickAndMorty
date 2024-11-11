@@ -1,10 +1,3 @@
-//
-//  DetailsView.swift
-//  RickAndMorty
-//
-//  Created by Mac on 11.11.2024.
-//
-
 import SwiftUI
 import RickMortySwiftApi
 
