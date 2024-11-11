@@ -5,12 +5,20 @@ import RickMortySwiftApi
 struct CharacterCellView: View {
     let character: RMCharacterModel
     
+    private var genderColor: Color {
+        character.gender == "Male" ? Color.maleBlue : Color.femalePink
+    }
+    
+    private var genderBackgroundColor: Color {
+        genderColor.opacity(0.1)
+    }
+    
     var body: some View {
         NavigationLink {
             CharacterPageView(character: character)
         } label: {
             RoundedRectangle(cornerRadius: 13)
-                .stroke(Color.roundRectangeleStroke, lineWidth: 1)
+                .stroke(Color.whiteForStroke, lineWidth: 1)
                 .background(RoundedRectangle(cornerRadius: 13).fill(Color.white))
                 .frame(height: 115)
                 .padding(.horizontal)
@@ -33,13 +41,13 @@ struct CharacterCellView: View {
                         
                         VStack {
                             Text(character.gender)
-                                .font(.system(size: 11))
-                                .foregroundColor(character.gender == "Male" ? Color.maleBlue : Color.femalePink)
+                                .font(.system(size: 14))
+                                .foregroundColor(genderColor)
                                 .padding(.vertical, 4)
                                 .padding(.horizontal)
                                 .background(
                                     Capsule()
-                                        .foregroundColor(character.gender == "Male" ? Color.maleBlue.opacity(0.1) : Color.femalePink.opacity(0.1))
+                                        .foregroundColor(genderBackgroundColor)
                                 )
                             
                             Spacer()
