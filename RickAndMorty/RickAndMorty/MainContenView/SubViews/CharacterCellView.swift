@@ -54,7 +54,6 @@ struct CharacterCellView: View {
                         }
                         .padding(.top, 20)
                         .padding(.trailing, 32)
-                        
                     }
                 }
                 .buttonStyle(.plain)

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CustomNavigationBar: View {
     @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         VStack {
             ZStack {

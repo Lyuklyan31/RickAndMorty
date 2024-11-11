@@ -18,6 +18,7 @@ struct ListCharactersView: View {
                 }
             }
         }
+        
         if viewModel.characters.isEmpty {
             ProgressView()
         }

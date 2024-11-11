@@ -3,6 +3,7 @@ import RickMortySwiftApi
 
 struct CharacterEpisodesView: View {
     var character: RMCharacterModel
+    
     var body: some View {
         VStack {
             Text("Episodes")
@@ -23,4 +24,3 @@ struct CharacterEpisodesView: View {
         }
     }
 }
-
