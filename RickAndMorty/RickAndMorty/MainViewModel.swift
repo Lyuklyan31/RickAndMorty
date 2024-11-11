@@ -3,12 +3,15 @@ import Combine
 import RickMortySwiftApi
 
 class MainViewModel: ObservableObject {
-    
     private let rmClient = RMClient()
-    private let descriptionService = DescriptionService()
     
-    @Published private(set) var characters: [RMCharacterModel] = []
-    @Published private(set) var alertMessage = ""
+    @Published private(set) var characters = [RMCharacterModel]()
+    @Published private(set) var alertMessage: String?
+    @Published private(set) var isLoading = false
+    
+    private var currentPage = 1
+    private let itemsPerPage = 6
+    private var canLoadMorePages = true
     
     init() {
         Task {
@@ -16,12 +19,31 @@ class MainViewModel: ObservableObject {
         }
     }
     
+    func loadMoreCharacters() {
+        Task {
+            await fetchCharacters()
+        }
+    }
+    
     @MainActor
-    func fetchCharacters() async {
+    private func fetchCharacters() async {
+        guard !isLoading && canLoadMorePages else { return }
+        
+        isLoading = true
+        alertMessage = nil
+        defer { isLoading = false }
+        
         do {
-            characters = try await rmClient.character().getAllCharacters()
+            let result = try await rmClient.character().getCharactersByPageNumber(pageNumber: currentPage)
+            if result.isEmpty {
+                canLoadMorePages = false
+            } else {
+                characters.append(contentsOf: result)
+                currentPage += 1
+            }
         } catch {
             alertMessage = "Error fetching characters"
         }
     }
 }
+
