@@ -5,12 +5,11 @@ import RickMortySwiftApi
 class MainViewModel: ObservableObject {
     private let rmClient = RMClient()
     
-    @Published private(set) var characters = [RMCharacterModel]()
+    @Published private(set) var characters = [CharacterWrapper]()
     @Published private(set) var alertMessage: String?
     @Published private(set) var isLoading = false
     
     private var currentPage = 1
-    private let itemsPerPage = 6
     private var canLoadMorePages = true
     
     init() {
@@ -35,10 +34,12 @@ class MainViewModel: ObservableObject {
         
         do {
             let result = try await rmClient.character().getCharactersByPageNumber(pageNumber: currentPage)
+            
             if result.isEmpty {
                 canLoadMorePages = false
             } else {
-                characters.append(contentsOf: result)
+                let wrappedCharacters = result.map { CharacterWrapper(character: $0) }
+                characters.append(contentsOf: wrappedCharacters)
                 currentPage += 1
             }
         } catch {

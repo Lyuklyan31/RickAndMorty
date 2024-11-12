@@ -1,32 +1,26 @@
 import SwiftUI
-import RickMortySwiftApi
-import Kingfisher
 
 struct ListCharactersView: View {
     @ObservedObject var viewModel: MainViewModel
     
     var body: some View {
-        ScrollView(.vertical) {
-            LazyVStack {
-                ForEach(viewModel.characters) { character in
-                    CharacterCellView(character: character)
-                        .onAppear {
-                            if character == viewModel.characters.last {
-                                viewModel.loadMoreCharacters()
+        VStack {
+            if viewModel.isLoading && viewModel.characters.isEmpty {
+                ProgressView()
+            }
+            
+            ScrollView(.vertical) {
+                LazyVStack {
+                    ForEach(Array(viewModel.characters.enumerated()), id: \.offset) { index, character in
+                        CharacterCellView(character: character.character)
+                            .onAppear {
+                                if index == viewModel.characters.count - 1 {
+                                    viewModel.loadMoreCharacters()
+                                }
                             }
-                        }
+                    }
                 }
             }
         }
-        
-        if viewModel.characters.isEmpty {
-            ProgressView()
-        }
-    }
-}
-
-extension RMCharacterModel: @retroactive Equatable {
-    public static func == (lhs: RMCharacterModel, rhs: RMCharacterModel) -> Bool {
-        return lhs.id == rhs.id
     }
 }

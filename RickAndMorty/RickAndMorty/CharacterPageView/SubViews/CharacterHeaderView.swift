@@ -6,8 +6,16 @@ struct CharacterHeaderView: View {
     let character: RMCharacterModel
     
     private var genderColor: Color {
-        character.gender == "Male" ? Color.maleBlue : Color.femalePink
+        switch character.gender {
+        case "Male":
+            return Color.maleBlue
+        case "Female":
+            return Color.femalePink
+        default:
+            return Color.black
+        }
     }
+
     
     private var genderBackgroundColor: Color {
         genderColor.opacity(0.1)
