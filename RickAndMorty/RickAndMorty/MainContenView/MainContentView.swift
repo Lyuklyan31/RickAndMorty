@@ -2,7 +2,7 @@ import SwiftUI
 import RickMortySwiftApi
 
 struct MainContentView: View {
-    @ObservedObject var viewModel = MainViewModel()
+    @StateObject var viewModel = MainViewModel()
     @State private var showingAlert = false
 
     var body: some View {

@@ -5,16 +5,18 @@ struct ListCharactersView: View {
     
     var body: some View {
         VStack {
+          
             if viewModel.isLoading && viewModel.characters.isEmpty {
                 ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle())
             }
             
             ScrollView(.vertical) {
                 LazyVStack {
-                    ForEach(Array(viewModel.characters.enumerated()), id: \.offset) { index, character in
+                    ForEach(viewModel.characters, id: \.id) { character in
                         CharacterCellView(character: character.character)
                             .onAppear {
-                                if index == viewModel.characters.count - 1 {
+                                if character == viewModel.characters.last {
                                     viewModel.loadMoreCharacters()
                                 }
                             }
