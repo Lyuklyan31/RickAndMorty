@@ -37,11 +37,17 @@ class MainViewModel: ObservableObject {
             
             if result.isEmpty {
                 canLoadMorePages = false
-            } else {
-                let wrappedCharacters = result.map { CharacterWrapper(character: $0) }
-                characters.append(contentsOf: wrappedCharacters)
-                currentPage += 1
+                return
             }
+            
+            if result.count < 20 {
+                canLoadMorePages = false
+            }
+            
+            let wrappedCharacters = result.map { CharacterWrapper(character: $0) }
+            characters.append(contentsOf: wrappedCharacters)
+            currentPage += 1
+            
         } catch {
             alertMessage = "Error fetching characters"
         }
